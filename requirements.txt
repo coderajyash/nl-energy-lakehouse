@@ -1,0 +1,4 @@
+databricks-sdk==0.165.0
+requests==2.34.2
+pytest
+ruff
