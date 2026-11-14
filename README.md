@@ -6,7 +6,7 @@ A daily batch pipeline on Databricks that collects Dutch day-ahead electricity p
 generation by source and weather, models them into a tested star schema, and serves a
 Power BI report.
 
-The question behind it: **how the wind, sun and demand move the Dutch power price?**
+The question behind it: **how do wind, sun and demand move the Dutch power price?**
 
 Data runs from 1 January 2025 and updates every day without manual steps.
 
