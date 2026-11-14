@@ -61,27 +61,13 @@ On the greenest days power cost about **37% less** than on the least green days.
 
 ## How it works
 
-```mermaid
-flowchart LR
-    API["Electricity and weather APIs"] --> ING["Python script<br/>GitHub Actions, 19:00 IST"]
-
-    subgraph DBX["Databricks"]
-        VOL[("Raw files")]
-        subgraph JOB["Daily job, 20:00 IST"]
-            BR["Bronze<br/>raw rows"] --> SI["Silver<br/>clean data"] --> GO["Gold<br/>report tables"] --> TE["Data checks"]
-        end
-        VOL --> BR
-    end
-
-    ING --> VOL
-    GO --> PBI["Power BI report"]
-```
+![Flow of the project](docs/project_flow.png)
 
 In simple steps:
 
 1. **19:00 IST**: a Python script on GitHub Actions downloads the latest data and saves
    the files in Databricks, exactly as they came.
-2. **20:00 IST**: a Databricks job processes the files in four steps:
+2. **20:15 IST**: a Databricks job processes the files in four steps:
    - **Bronze**: turns the raw files into rows
    - **Silver**: fixes data types and times, and removes duplicates
    - **Gold**: builds the tables the report uses
@@ -101,7 +87,7 @@ If any step fails, I get an email.
 
 ### Data used
 
-| Source | What | How often |
+| Source | What | How often it Updates |
 | --- | --- | --- |
 | [Energy-Charts](https://api.energy-charts.info) | Electricity prices for the Netherlands | Every 15 minutes |
 | [Energy-Charts](https://api.energy-charts.info) | Power produced by each source, and total demand | Every 15 minutes |
@@ -131,13 +117,8 @@ generation, built from 915,000 rows of 15-minute generation data.
 
 ---
 
-## Problems I solved along the way
+## Problems I encountered and solved in completing the project
 
-**Running the job twice must not create duplicates.**
-The silver step uses `MERGE`: it inserts new rows and updates changed ones, and leaves
-everything else alone. Running it again on the same data changes nothing.
-
-![Delta table history after a rerun](docs/merge_history_image.png)
 
 **The clock change.**
 On 26 October 2025 the clocks in the Netherlands went back an hour, so 02:00–02:45 local
