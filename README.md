@@ -185,27 +185,6 @@ docs/                images for this README
 
 ---
 
-## Run it yourself
-
-1. Create a free [Databricks](https://docs.databricks.com/aws/en/getting-started/free-edition)
-   account and run the files in `sql/setup/`.
-2. Load the history:
-   ```bash
-   python -m venv .venv && source .venv/bin/activate
-   pip install -r requirements.txt
-   export DATABRICKS_HOST="https://<your-workspace>.cloud.databricks.com"
-   export DATABRICKS_TOKEN="<your-token>"
-   python -m ingestion.run --start 2025-01-01 --end <today>
-   ```
-3. Connect this repository to Databricks as a Git folder and run the notebooks
-   `01_bronze` to `04_tests`. The last two need a `repo_root` parameter: the path of the
-   Git folder.
-4. To make it daily, add `DATABRICKS_HOST` and `DATABRICKS_TOKEN` as GitHub secrets and
-   create a Databricks job with the four notebooks.
-5. Open [`powerbi/Energy_pre_nl.pbix`](powerbi/Energy_pre_nl.pbix) in Power BI Desktop
-   and connect it to your own Databricks SQL warehouse.
-
----
 
 ## What's next
 
